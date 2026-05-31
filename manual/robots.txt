@@ -1,0 +1,66 @@
+# This site is private-ish: let shared-link preview bots fetch the page/image,
+# but ask major search engines not to crawl or index it.
+
+# Search engines
+User-agent: Googlebot
+Disallow: /
+
+User-agent: Googlebot-Image
+Disallow: /
+
+User-agent: Googlebot-News
+Disallow: /
+
+User-agent: AdsBot-Google
+Disallow: /
+
+User-agent: Bingbot
+Disallow: /
+
+User-agent: msnbot
+Disallow: /
+
+User-agent: Slurp
+Disallow: /
+
+User-agent: DuckDuckBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Yandex
+Disallow: /
+
+# Link previews and messaging/social share cards
+User-agent: Applebot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot-LinkExpanding
+Allow: /
+
+User-agent: Discordbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+# Unknown bots may fetch the page so non-search preview services can work.
+# The page itself still carries noindex meta tags.
+User-agent: *
+Allow: /
