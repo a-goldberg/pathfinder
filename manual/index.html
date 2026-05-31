@@ -4,535 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Shira's Pathfinder Pocket Guide</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --ink: #172027;
-        --muted: #5c6670;
-        --paper: #fffdfa;
-        --wash: #f4f7f4;
-        --line: #d9ded8;
-        --charcoal: #25313a;
-        --green: #3e6d5a;
-        --rose: #b85b56;
-        --gold: #c2933e;
-        --blue: #486f8f;
-        --mint: #eaf3ec;
-        --blush: #faeeee;
-        --cream: #fff7e2;
-        --sky: #edf5fa;
-        --shadow: 0 18px 48px rgba(23, 32, 39, 0.13);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        background: var(--wash);
-        color: var(--ink);
-        font-family:
-          Inter,
-          ui-sans-serif,
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          sans-serif;
-        line-height: 1.5;
-        text-rendering: optimizeLegibility;
-      }
-
-      img {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-
-      a {
-        color: inherit;
-      }
-
-      .shell {
-        width: min(1120px, 100%);
-        margin: 0 auto;
-        background: var(--paper);
-        box-shadow: var(--shadow);
-      }
-
-      .hero {
-        min-height: 92svh;
-        display: grid;
-        align-items: end;
-        position: relative;
-        overflow: clip;
-        background: var(--charcoal);
-        color: white;
-      }
-
-      .hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          linear-gradient(
-            180deg,
-            rgba(19, 26, 31, 0.08),
-            rgba(19, 26, 31, 0.86)
-          ),
-          linear-gradient(90deg, rgba(19, 26, 31, 0.58), rgba(19, 26, 31, 0.1));
-      }
-
-      .hero img {
-        position: absolute;
-        inset: 0;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 1;
-        padding: 28px 20px 30px;
-        max-width: 760px;
-      }
-
-      .eyebrow {
-        margin: 0 0 12px;
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #ffd98a;
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-
-      h1 {
-        margin-bottom: 14px;
-        font-size: clamp(2.7rem, 14vw, 6.8rem);
-        line-height: 0.92;
-        letter-spacing: 0;
-        max-width: 7.6em;
-      }
-
-      .hero p {
-        max-width: 45rem;
-        margin-bottom: 0;
-        font-size: clamp(1.05rem, 4vw, 1.35rem);
-      }
-
-      .hero-actions,
-      .chip-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 22px;
-      }
-
-      .button,
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        min-height: 42px;
-        border-radius: 999px;
-        text-decoration: none;
-        font-weight: 800;
-      }
-
-      .button {
-        padding: 0 18px;
-        background: #ffd98a;
-        color: #20262b;
-      }
-
-      .button.secondary {
-        background: rgba(255, 255, 255, 0.16);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.36);
-      }
-
-      .chip {
-        padding: 0 13px;
-        background: rgba(255, 255, 255, 0.14);
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.24);
-        font-size: 0.83rem;
-      }
-
-      .notice {
-        padding: 18px 20px;
-        background: var(--charcoal);
-        color: #f5f7f3;
-        border-top: 1px solid rgba(255, 255, 255, 0.15);
-      }
-
-      .notice strong {
-        color: #ffd98a;
-      }
-
-      .toc {
-        position: sticky;
-        top: 0;
-        z-index: 5;
-        background: rgba(255, 253, 250, 0.94);
-        border-bottom: 1px solid var(--line);
-        backdrop-filter: blur(14px);
-      }
-
-      .toc-inner {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 10px 16px;
-        scrollbar-width: none;
-      }
-
-      .toc-inner::-webkit-scrollbar {
-        display: none;
-      }
-
-      .toc a {
-        flex: 0 0 auto;
-        padding: 9px 12px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: white;
-        text-decoration: none;
-        color: var(--charcoal);
-        font-size: 0.86rem;
-        font-weight: 800;
-      }
-
-      main {
-        padding: 20px 16px 44px;
-      }
-
-      section {
-        scroll-margin-top: 78px;
-      }
-
-      .section {
-        padding: 30px 0;
-        border-bottom: 1px solid var(--line);
-      }
-
-      .section:last-child {
-        border-bottom: 0;
-      }
-
-      .section-head {
-        margin-bottom: 18px;
-      }
-
-      .section-label {
-        margin-bottom: 7px;
-        color: var(--rose);
-        font-size: 0.76rem;
-        font-weight: 900;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-      }
-
-      h2 {
-        margin-bottom: 8px;
-        font-size: clamp(1.9rem, 9vw, 3.6rem);
-        line-height: 1;
-        letter-spacing: 0;
-      }
-
-      h3 {
-        margin-bottom: 8px;
-        font-size: 1.05rem;
-        line-height: 1.2;
-      }
-
-      .lead {
-        max-width: 52rem;
-        margin-bottom: 0;
-        color: var(--muted);
-        font-size: 1.04rem;
-      }
-
-      .grid {
-        display: grid;
-        gap: 14px;
-      }
-
-      .card,
-      .photo-card,
-      .callout {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: white;
-      }
-
-      .card {
-        padding: 17px;
-      }
-
-      .card.accent-green {
-        background: var(--mint);
-        border-color: #cbdccc;
-      }
-
-      .card.accent-rose {
-        background: var(--blush);
-        border-color: #ebcfcc;
-      }
-
-      .card.accent-gold {
-        background: var(--cream);
-        border-color: #ecdba8;
-      }
-
-      .card.accent-blue {
-        background: var(--sky);
-        border-color: #c9dbea;
-      }
-
-      .card p:last-child,
-      .callout p:last-child,
-      .photo-card p:last-child {
-        margin-bottom: 0;
-      }
-
-      .tag {
-        display: inline-block;
-        margin-bottom: 10px;
-        padding: 4px 8px;
-        border-radius: 999px;
-        background: var(--charcoal);
-        color: white;
-        font-size: 0.72rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
-
-      .tag.green {
-        background: var(--green);
-      }
-
-      .tag.rose {
-        background: var(--rose);
-      }
-
-      .tag.gold {
-        background: var(--gold);
-        color: #231d10;
-      }
-
-      .tag.blue {
-        background: var(--blue);
-      }
-
-      .steps {
-        display: grid;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        counter-reset: step;
-      }
-
-      .steps li {
-        counter-increment: step;
-        display: grid;
-        grid-template-columns: 34px 1fr;
-        gap: 10px;
-        align-items: start;
-      }
-
-      .steps li::before {
-        content: counter(step);
-        display: grid;
-        place-items: center;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: var(--charcoal);
-        color: white;
-        font-weight: 900;
-      }
-
-      .plain-list {
-        display: grid;
-        gap: 9px;
-        margin: 0;
-        padding-left: 18px;
-      }
-
-      .plain-list li::marker {
-        color: var(--rose);
-      }
-
-      .photo-card {
-        overflow: hidden;
-      }
-
-      .photo-card img {
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
-      }
-
-      .photo-card figcaption {
-        padding: 12px 13px 14px;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      figure {
-        margin: 0;
-      }
-
-      .callout {
-        padding: 15px 16px;
-        background: #fbf3dd;
-        border-left: 6px solid var(--gold);
-      }
-
-      .callout.danger {
-        background: #fbebea;
-        border-left-color: var(--rose);
-      }
-
-      .callout.calm {
-        background: #edf5fa;
-        border-left-color: var(--blue);
-      }
-
-      .mini-title {
-        margin-bottom: 4px;
-        font-weight: 900;
-      }
-
-      .feature-list {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 10px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .feature-list li {
-        padding: 12px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #fff;
-      }
-
-      .feature-list strong {
-        display: block;
-        margin-bottom: 3px;
-      }
-
-      .split {
-        display: grid;
-        gap: 14px;
-      }
-
-      .wide-photo img {
-        aspect-ratio: 16 / 10;
-      }
-
-      .footer-note {
-        padding: 22px 16px 34px;
-        color: var(--muted);
-        font-size: 0.9rem;
-      }
-
-      @media (min-width: 680px) {
-        .hero-content {
-          padding: 48px 44px 48px;
-        }
-
-        main {
-          padding: 34px 34px 64px;
-        }
-
-        .notice {
-          padding: 18px 34px;
-        }
-
-        .section {
-          padding: 42px 0;
-        }
-
-        .grid.two {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-
-        .grid.three,
-        .feature-list {
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .split {
-          grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-          align-items: start;
-        }
-      }
-
-      @media (min-width: 980px) {
-        .hero {
-          min-height: 760px;
-        }
-
-        .section-head {
-          display: grid;
-          grid-template-columns: 0.9fr 1.1fr;
-          gap: 28px;
-          align-items: end;
-        }
-
-        .toc-inner {
-          justify-content: center;
-        }
-      }
-
-      @media print {
-        body,
-        .shell {
-          background: white;
-          box-shadow: none;
-        }
-
-        .hero {
-          min-height: auto;
-          color: var(--ink);
-          background: white;
-        }
-
-        .hero img,
-        .hero::after,
-        .toc {
-          display: none;
-        }
-
-        .hero-content,
-        main,
-        .notice,
-        .footer-note {
-          padding-inline: 0;
-        }
-
-        .section {
-          break-inside: avoid;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="shell">
@@ -542,27 +14,21 @@
           alt="White 2026 Nissan Pathfinder Platinum parked outside"
         />
         <div class="hero-content">
-          <p class="eyebrow">Shira's grown-woman Pathfinder guide</p>
+          <p class="eyebrow">Shira's grown-ass woman's guide to the</p>
           <h1>2026 Nissan Pathfinder Platinum</h1>
           <p>
-            The useful stuff, minus the manual fog: buttons, screens, settings,
-            cargo tricks, comfort controls, and the little habits that keep the
-            pretty wheels pretty.
+            I read the manual so you don't have to. This is your guide to the
+            basics: buttons, screens, settings, cargo tricks, comfort controls,
+            and safety features.
           </p>
           <div class="hero-actions">
             <a class="button" href="#quick-start">Start here</a>
             <a class="button secondary" href="#toc">Browse topics</a>
           </div>
-          <div class="chip-row" aria-label="Vehicle highlights">
-            <span class="chip">FWD Platinum</span>
-            <span class="chip">Captain's chairs</span>
-            <span class="chip">ProPILOT with Navi-link</span>
-            <span class="chip">12.3-inch meter display</span>
-          </div>
         </div>
       </header>
 
-      <aside class="notice" aria-label="Guide purpose">
+      <aside class="notice hidden" aria-label="Guide purpose">
         <strong>Quick reality check:</strong> this is a practical owner guide,
         not the legal bible. For service, towing limits, warning lights,
         child-seat rules, and anything involving actual danger, use the official
@@ -594,9 +60,9 @@
               <h2>First 10 minutes</h2>
             </div>
             <p class="lead">
-              Do this once while parked and the Pathfinder becomes a lot less
-              mysterious. Future-you, already late and holding coffee, will be
-              grateful.
+              Do this once while you're parked, and the Pathfinder becomes a lot
+              less mysterious. Future-you, already late and holding coffee, will
+              be grateful.
             </p>
           </div>
 
@@ -605,17 +71,23 @@
               <article class="card accent-green">
                 <span class="tag green">Do first</span>
                 <ol class="steps">
-                  <li>Keep the Intelligent Key in your bag or pocket.</li>
+                  <li>Keep the Intelligent Key in your purse or pocket.</li>
                   <li>
-                    Set the seat, mirrors, steering wheel, and head restraint.
-                  </li>
-                  <li>Pair the phone and confirm calls, audio, and maps.</li>
-                  <li>
-                    Set climate to AUTO, pick a temperature, and use SYNC when
-                    everyone gets the same weather.
+                    Set the seat, mirrors, and steering wheel where you want
+                    them.
                   </li>
                   <li>
-                    Find the CAMERA button before a curb makes the introduction.
+                    Lower the seat belt and head restraint to the "small person"
+                    setting.
+                  </li>
+                  <li>Pair your phone and confirm calls, audio, and maps.</li>
+                  <li>
+                    Set climate to AUTO, pick a temperature, and use SYNC if you
+                    want everyone to get the same weather.
+                  </li>
+                  <li>
+                    Find the CAMERA button before you try any advanced parking
+                    maneuvers.
                   </li>
                 </ol>
               </article>
@@ -624,8 +96,7 @@
                 <p class="mini-title">Three habits worth keeping</p>
                 <p>
                   Hands stay on the wheel with driver assist. Eyes stay outside
-                  even when cameras are on. Wheels stay away from curbs because
-                  refinishing is a boring way to spend money.
+                  even when cameras are on. Wheels stay away from curbs.
                 </p>
               </article>
             </div>
@@ -636,13 +107,13 @@
                 alt="Pathfinder dashboard with steering wheel, center screen, climate panel, and shifter"
               />
               <figcaption>
-                Your daily command center: meter display, center screen, climate
-                panel, shifter, Auto Hold, and drive mode switch.
+                Your daily command center: digital dash display, center screen,
+                climate panel, shifter, Auto Hold, and drive mode switch.
               </figcaption>
             </figure>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <article class="card">
               <span class="tag">Best default</span>
               <h3>Drive mode</h3>
@@ -663,8 +134,8 @@
               <span class="tag">Use smartly</span>
               <h3>Auto Hold</h3>
               <p>
-                Great in traffic and drive-throughs. Turn it off for car washes,
-                garages, or delicate creeping.
+                Great in traffic, driveways, and drive-throughs. Turn it off for
+                car washes, garages, or delicate creeping.
               </p>
             </article>
           </div>
@@ -677,14 +148,18 @@
               <h2>Key, locks, remote start, liftgate</h2>
             </div>
             <p class="lead">
-              The key can mostly live in your bag. The car handles the handshake
-              as long as the fob is close and the battery is alive.
+              You know how this works. The key can mostly live in your bag. The
+              car knows when you're close.
             </p>
           </div>
 
           <div class="grid two">
             <figure class="photo-card">
-              <img src="assets/key-fob.jpg" alt="Nissan Intelligent Key fob" />
+              <img
+                class="square"
+                src="assets/key-fob.jpg"
+                alt="Nissan Intelligent Key fob"
+              />
               <figcaption>
                 Fob buttons: lock, unlock, liftgate, remote start, and panic.
               </figcaption>
@@ -694,29 +169,43 @@
               <span class="tag blue">Key basics</span>
               <h3>Normal use</h3>
               <p>
-                With the key nearby, use the door handle buttons to lock and
-                unlock, press the brake and ignition button to start, and use
-                the liftgate buttons when your hands are full enough to be
-                dramatic.
+                Cool thing is that any of the doors can be unlocked by touch
+                with the fob nearby. Tap the button on the handle again to
+                unlock all doors. Hold the liftgate button on the fob when your
+                hands are full enough to be dramatic. Hold it again to close the
+                back.
               </p>
               <h3>Remote start</h3>
               <p>
-                Lock first, then use the fob's remote-start sequence. After you
-                get in, press the brake and ignition button once before shifting
-                out of Park.
+                Press Lock first, then hold the remote start button for 2
+                seconds. This gets your heat or A/C blastin'. After you get in,
+                press the brake and ignition button once before shifting out of
+                Park.
+              </p>
+              <h3>Hot tip</h3>
+              <p>
+                Hold down the unlock button to crack all of the windows on a hot
+                day, if you don't want to remote-start the engine (and A/C) yet
+                for whatever reason.
               </p>
             </article>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <article class="card">
-              <span class="tag">Liftgate</span>
+              <span class="tag">Rear Liftgate</span>
               <h3>Open it from several places</h3>
               <p>
                 Use the fob, dash switch, exterior hatch switch, or liftgate
-                buttons. The close-and-lock button is the magic
+                buttons. The close-and-lock button, pictured here, is the magic
                 unloading-at-home move: press it, step away with the key, and
                 let the hatch close and lock.
+              </p>
+              <h3>Supporting Dwarf Accessibility</h3>
+              <p>
+                Note that I already set it to a lower opening height. If you
+                want it lower, just pull it down with your hand and then hold
+                down the close button until it beeps a lot.
               </p>
             </article>
             <figure class="photo-card">
@@ -737,6 +226,7 @@
               garage door, opener arm, shelves, bikes, and whatever else has
               been promoted to ceiling decor.
             </p>
+            <p>Just kidding, you'll never fit this in the garage.</p>
           </article>
         </section>
 
@@ -747,8 +237,9 @@
               <h2>Start, shift, park</h2>
             </div>
             <p class="lead">
-              The basics are easy, but the electronic shifter deserves one calm
-              rehearsal before your hand tries to act from 2009 muscle memory.
+              The basics are easy, but the electronic shifter is a little
+              different than other cars. So, you know, just take a moment to see
+              how it works.
             </p>
           </div>
 
@@ -766,8 +257,8 @@
                   </li>
                   <li>Press the P button on top of the shifter for Park.</li>
                   <li>
-                    Set the parking brake when parked on a slope or whenever you
-                    want extra certainty.
+                    Set the parking brake when parked on a slope (like your
+                    driveway) or whenever you want extra certainty.
                   </li>
                 </ol>
               </article>
@@ -777,14 +268,15 @@
                 <h3>Paddles and D/M</h3>
                 <p>
                   Manual mode is useful for hills, temporary engine braking, or
-                  more responsive control. For everyday errands, Drive is still
-                  the correct answer.
+                  more responsive control. You'll never use it. For your
+                  purposes, Drive is still the correct answer.
                 </p>
               </article>
             </div>
 
             <figure class="photo-card">
               <img
+                class="square"
                 src="assets/center-console.jpg"
                 alt="Center console showing electronic shifter, parking brake, Auto Hold, and drive mode switch"
               />
@@ -795,7 +287,7 @@
             </figure>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <article class="card">
               <span class="tag">Parking brake</span>
               <p>
@@ -806,8 +298,8 @@
             <article class="card">
               <span class="tag">Auto Hold</span>
               <p>
-                Keeps the car stopped after you release the brake. Press the
-                accelerator to move again.
+                Keeps the car from rolling after you release the brake. Press
+                the accelerator to move again.
               </p>
             </article>
             <article class="card">
@@ -824,12 +316,11 @@
           <div class="section-head">
             <div>
               <p class="section-label">04 / Driver cockpit</p>
-              <h2>Wheel, display, memory</h2>
+              <h2>Steering wheel & instrument panel</h2>
             </div>
             <p class="lead">
-              The steering wheel controls both the fun stuff and the serious
-              stuff. The driver display is where several safety settings hide
-              like they pay rent there.
+              The steering wheel controls more than just the direction of
+              travel. Even you can learn what all the buttons do!
             </p>
           </div>
 
@@ -856,12 +347,14 @@
             </figure>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <article class="card">
-              <span class="tag">Meter display</span>
+              <span class="tag">digital cluster display</span>
               <p>
                 Shows trip info, speed, navigation/audio prompts, tire and
-                vehicle info, driver-assist status, warnings, and settings.
+                vehicle info, driver-assist status, warnings, and settings. You
+                can cycle through the views here with the left-side buttons.
+                Additional options in settings.
               </p>
             </article>
             <article class="card">
@@ -871,34 +364,18 @@
                 Emergency Brake, Speed Limit Sign, and Parking Aids.
               </p>
             </article>
-            <article class="card">
-              <span class="tag">Memory buttons</span>
-              <p>
-                Adjust seat, mirrors, and wheel. Press SET, then 1 or 2. Link
-                the position to a key/profile if multiple drivers use the car.
-              </p>
-            </article>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <figure class="photo-card">
               <img
+                class="square"
                 src="assets/cluster.jpg"
                 alt="12.3-inch instrument cluster"
               />
               <figcaption>
-                12.3-inch meter display with speed, range, fuel, coolant temp,
-                seatbelt reminders, and information area.
-              </figcaption>
-            </figure>
-            <figure class="photo-card">
-              <img
-                src="assets/driver-door.jpg"
-                alt="Driver door controls for windows, locks, mirrors, and memory"
-              />
-              <figcaption>
-                Driver door controls: windows, locks, mirrors, and memory
-                SET/L1/L2 buttons.
+                12.3-inch digital instrument cluster with speed, range, fuel,
+                coolant temp, seatbelt reminders, and information area.
               </figcaption>
             </figure>
           </div>
@@ -911,8 +388,9 @@
               <h2>NissanConnect, phone, settings</h2>
             </div>
             <p class="lead">
-              There are two settings worlds: the center touchscreen and the
-              driver display. Annoying? A little. Survivable? Completely.
+              There are two worlds where settings can be, uh, set: the center
+              touchscreen and the driver display. Weird? A little. Survivable? I
+              mean, I hope so.
             </p>
           </div>
 
@@ -949,7 +427,7 @@
             </figure>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <figure class="photo-card">
               <img
                 src="assets/infotainment-settings.jpg"
@@ -968,11 +446,16 @@
                 Navi-link relies on the vehicle's built-in route data for its
                 route-aware behavior.
               </p>
+              <p>
+                It's a little weird, but once you set it up with your Google
+                account, then you'll have maps and other stuff accessible, even
+                without CarPlay. For what that's worth.
+              </p>
               <h3>Voice and chimes</h3>
               <p>
-                Use the steering wheel voice button for voice commands or phone
-                assistant access. Keep safety chimes loud enough to cut through
-                the playlist.
+                Use the steering wheel voice button for voice commands or Siri
+                access. Keep safety chimes loud enough to cut through the steamy
+                audiobook action.
               </p>
             </article>
           </div>
@@ -1007,8 +490,7 @@
                 <span class="tag green">Best setup</span>
                 <p>
                   Press AUTO, choose a temperature, and use SYNC when both front
-                  zones should match. A/C can stay on most of the time because
-                  it helps dry the air.
+                  zones should match.
                 </p>
               </article>
               <article class="card">
@@ -1022,32 +504,34 @@
               <article class="card">
                 <span class="tag">Heated wheel</span>
                 <p>
-                  Use the heated steering wheel button on the climate panel or
-                  driver control bank. It cycles warmth and may not heat if the
-                  wheel is already warm.
+                  The heated steering wheel button is in a weird place, but
+                  it'll keep your hands toasty when it's on. Note that it only
+                  works when it's cold outside.
                 </p>
               </article>
             </div>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <article class="card">
               <span class="tag">Front seats</span>
               <p>
-                Heating and ventilation work best without thick seat covers. Use
-                high for quick relief, low/medium for longer drives.
+                You've got heated and ventilated seats, bringing a new meaning
+                to "hot boxing" the car.
               </p>
             </article>
             <article class="card">
-              <span class="tag">Remote start climate</span>
+              <span class="tag">Rear Control</span>
               <p>
-                Remote start can preheat, cool, or defrost the cabin. You still
-                need the key, brake, and ignition button before shifting.
+                The children need A/C, too, and they have their own climate
+                zone. Press REAR CTRL and turn the dial to choose a temp for
+                them. Press REAR LOCK to prevent them from changing it
+                themselves.
               </p>
             </article>
           </div>
 
-          <figure class="photo-card wide-photo" style="margin-top: 14px">
+          <figure class="photo-card wide-photo stack-top">
             <img
               src="assets/second-row-controls.jpg"
               alt="Second-row climate panel with heated seat buttons, USB-C ports, and 120V outlet"
@@ -1064,7 +548,7 @@
           <div class="section-head">
             <div>
               <p class="section-label">07 / People and stuff</p>
-              <h2>Seats, rows, cargo</h2>
+              <h2>Seats, windows, cargo</h2>
             </div>
             <p class="lead">
               Captain's chairs make the second row feel civilized. The cargo
@@ -1073,9 +557,58 @@
             </p>
           </div>
 
-          <div class="grid two">
+          <div class="grid three stack-top">
             <figure class="photo-card">
               <img
+                class="square"
+                src="assets/driver-seat-controls.jpg"
+                alt="Driver power seat controls"
+              />
+              <figcaption>
+                Power seat controls for the driver handle position, seatback
+                angle, lumbar, and related adjustments.
+              </figcaption>
+            </figure>
+
+            <figure class="photo-card">
+              <img
+                class="square"
+                src="assets/passenger-seat.jpg"
+                alt="Passenger-side front seat controls & glovebox"
+              />
+              <figcaption>
+                Passnger seat has similar adjustment controls (no memory), with
+                access to the lockable glovebox.
+              </figcaption>
+            </figure>
+            <figure class="photo-card">
+              <img
+                class="square"
+                src="assets/driver-door.jpg"
+                alt="Driver door controls for windows, locks, mirrors, and memory"
+              />
+              <figcaption>
+                Driver door controls: windows, locks, mirrors, and memory
+                SET/L1/L2 buttons.
+              </figcaption>
+            </figure>
+          </div>
+
+          <div cxlass="grid three stack-top">
+            <article class="card">
+              <span class="tag">Memory buttons</span>
+              <p>
+                Adjust seat, mirrors, and steering wheel. Press SET, then 1 or
+                2. Link the position to your specific key/profile, and the car
+                will return to position when you enter.
+              </p>
+            </article>
+          </div>
+
+          <div class="grid two stack-top">
+            <figure class="photo-card">
+              <img
+                class="square"
                 src="assets/second-row.jpg"
                 alt="Second-row captain's chairs with armrests and center console"
               />
@@ -1084,19 +617,30 @@
                 third-row access.
               </figcaption>
             </figure>
-            <figure class="photo-card">
-              <img
-                src="assets/driver-seat-controls.jpg"
-                alt="Driver power seat controls"
-              />
-              <figcaption>
-                Power seat controls handle position, seatback angle, lumbar, and
-                related adjustments.
-              </figcaption>
-            </figure>
+          </div>
+          <div class="grid three stack-top">
+            <article class="card">
+              <span class="tag">Bunny hop</span>
+              <p>
+                Press the button the lower side of each second-row chair to have
+                it electronically hop up and forward, giving easy access to the
+                third row.
+              </p>
+            </article>
+            <article class="card">
+              <span class="tag">Comfort</span>
+              <p>Pull the lever to adjust the tilt of the seatback.</p>
+            </article>
+            <article class="card">
+              <span class="tag">Convenience</span>
+              <p>
+                Both middle seats can be folded flat; just get the headrest out
+                of the way or move the front seat up enough.
+              </p>
+            </article>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <article class="card">
               <span class="tag">Second row</span>
               <p>
@@ -1121,23 +665,27 @@
             </article>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <figure class="photo-card">
               <img
                 src="assets/cargo-up.jpg"
                 alt="Cargo area with all rows up"
               />
               <figcaption>
-                All rows up: use the underfloor bin for small items.
+                All rows up: use the underfloor bin for small items. Tip: keep
+                the middle headrest folded for better visibility.
               </figcaption>
             </figure>
             <figure class="photo-card">
               <img
+                class=""
                 src="assets/cargo-folded.jpg"
                 alt="Cargo area with split-fold seats lowered"
               />
               <figcaption>
-                Split-fold seats make room without sacrificing every seat.
+                Split-fold seats make room without sacrificing every seat. Grab
+                the strap to pull them back up into position (and don't forget
+                to return the headrests).
               </figcaption>
             </figure>
             <figure class="photo-card">
@@ -1147,12 +695,13 @@
               />
               <figcaption>
                 Underfloor bins keep straps, umbrellas, and emergency gear
-                contained.
+                contained. You also have nets and things we can set up to keep
+                things from rolling around.
               </figcaption>
             </figure>
           </div>
 
-          <article class="callout danger" style="margin-top: 14px">
+          <article class="callout danger stack-top">
             <p class="mini-title">Cargo rule</p>
             <p>
               Do not stack loose cargo above the seatbacks unless it is secured.
@@ -1168,33 +717,113 @@
               <h2>Driver assist and parking</h2>
             </div>
             <p class="lead">
-              ProPILOT Assist with Navi-link can reduce fatigue. It is not
-              hands-free driving, not magic, and not an excuse to mentally leave
-              the vehicle.
+              ProPILOT Assist is best understood as fancy highway cruise
+              control: it can manage speed, following distance, and some
+              lane-centering help, but you are still the driver. No naps. No
+              makeup touch-ups while driving.
             </p>
           </div>
 
           <article class="callout danger">
-            <p class="mini-title">Important</p>
+            <p class="mini-title">Use it where it makes sense</p>
             <p>
-              This Pathfinder has ProPILOT Assist with Navi-link. It is not
-              ProPILOT Assist 2.1 and does not provide hands-free driving. Hands
-              on the wheel, eyes on the road.
+              Use ProPILOT/Intelligent Cruise Control on suitable highways or
+              steady traffic, not messy city driving, construction zones, sharp
+              curves, bad weather, unclear lanes, or anywhere you would not
+              trust the car to make gentle speed and steering corrections.
             </p>
           </article>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <article class="card accent-blue">
-              <span class="tag blue">Use ProPILOT</span>
+              <span class="tag blue">Set speed + gap</span>
+              <h3>Use Intelligent Cruise Control</h3>
+              <p>
+                Intelligent Cruise Control is the speed-and-distance part of
+                ProPILOT. It tries to hold your set speed when the lane ahead is
+                clear, then slows down to follow a vehicle ahead at the gap you
+                choose.
+              </p>
               <ol class="steps">
-                <li>On a suitable road, press the blue ProPILOT button.</li>
-                <li>Press SET- at the speed you want.</li>
-                <li>Use RES+ and SET- to adjust speed.</li>
-                <li>Use the following-distance button to set the gap.</li>
-                <li>Cancel with CANCEL, the brake pedal, or system off.</li>
+                <li>
+                  Press the blue ProPILOT button. The system is on, but not set
+                  yet.
+                </li>
+                <li>Drive to the speed you want and press SET-.</li>
+                <li>
+                  Tap RES+ or SET- for small speed changes; hold either one for
+                  bigger changes.
+                </li>
+                <li>
+                  Press the distance button to cycle long, middle, and short
+                  following gaps.
+                </li>
+                <li>
+                  Cancel with CANCEL or the brake. Press RES+ to resume the
+                  previous set speed when safe.
+                </li>
               </ol>
+              <p>
+                If it will not set, check the basics: Drive selected, seat belt
+                buckled, doors closed, parking brake off, VDC on, and enough
+                speed or a vehicle ahead to follow.
+              </p>
             </article>
 
+            <article class="card accent-green">
+              <span class="tag green">Traffic flow</span>
+              <h3>What happens behind another car</h3>
+              <p>
+                If the vehicle ahead slows, ICC can slow this Pathfinder and
+                hold it stopped. If the stop is brief, it may start following
+                again automatically. After more than about three seconds, press
+                RES+ or lightly tap the accelerator when traffic moves and the
+                path is clear. Navi-link may extend that window on mapped
+                limited-access freeways.
+              </p>
+              <h3>When you take over</h3>
+              <p>
+                Brake if traffic cuts in, stops suddenly, or feels too close.
+                The system is not a panic-braking promise, and it may not react
+                to stationary or very slow objects the way a human should.
+              </p>
+            </article>
+          </div>
+
+          <div class="grid two stack-top">
+            <article class="card">
+              <span class="tag">Steering Assist</span>
+              <h3>Lane-centering help, not self-driving</h3>
+              <p>
+                Steering Assist works with ICC when lane markings are clear. It
+                can help keep the vehicle centered, but it expects your hands on
+                the wheel and your brain in the building.
+              </p>
+              <p>
+                Watch the driver display: green lane/steering indicators mean
+                the system is actively helping; gray means standby or not enough
+                lane information. If the car complains about hands off, grip the
+                wheel normally.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="tag">Navi-link</span>
+              <h3>Why built-in navigation matters</h3>
+              <p>
+                With built-in navigation route data, Navi-link can support
+                route-aware behavior on certain limited-access freeways,
+                including speed-limit assist and smoother speed adjustment near
+                some curves, junctions, or exits.
+              </p>
+              <p>
+                Treat it as polish, not permission. You may still need to brake,
+                steer, or ignore a suggested speed change.
+              </p>
+            </article>
+          </div>
+
+          <div class="grid two stack-top">
             <figure class="photo-card">
               <img
                 src="assets/driver-assistance-menu.jpg"
@@ -1206,9 +835,53 @@
                 Parking Aids.
               </figcaption>
             </figure>
+
+            <article class="card accent-gold">
+              <span class="tag gold">Settings to know</span>
+              <h3>Where the toggles live</h3>
+              <p>
+                Use the driver display's Driver Assistance menu for Steering
+                Assist, Lane Assist, Blind Spot Assist, Emergency Brake, Speed
+                Limit Sign, and Parking Aids. Some choices are warnings only;
+                others can add a small intervention.
+              </p>
+            </article>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <ul class="feature-list stack-top">
+            <li>
+              <strong>Blind Spot Assist</strong>
+              Warns about vehicles in adjacent lanes and may help discourage a
+              lane change. Still look. Mirrors remain employed.
+            </li>
+            <li>
+              <strong>Lane Assist</strong>
+              Warns or nudges when the car drifts and lane markings are clear.
+              It gets less useful when the paint disappears.
+            </li>
+            <li>
+              <strong>Emergency Braking</strong>
+              Can warn and may brake for some forward hazards. Leave following
+              distance like a person with insurance.
+            </li>
+            <li>
+              <strong>Rear Cross Traffic</strong>
+              Helps when backing out, but may miss pedestrians, bikes, angled
+              traffic, or vehicles hidden by neighboring cars.
+            </li>
+            <li>
+              <strong>Speed Limit Sign</strong>
+              Displays recognized speed info and may support speed-limit assist.
+              Posted signs and judgment still win.
+            </li>
+            <li>
+              <strong>Sensors and cameras</strong>
+              Dirt, ice, rain, fog, glare, worn markings, weird road geometry,
+              and blocked radar/cameras can make the systems temporarily dumb.
+            </li>
+          </ul>
+
+          <div class="grid two stack-top">
             <figure class="photo-card">
               <img
                 src="assets/camera-view.jpg"
@@ -1220,51 +893,24 @@
               </figcaption>
             </figure>
             <article class="card accent-gold">
-              <span class="tag gold">Camera button</span>
-              <h3>Press it before you need it</h3>
+              <span class="tag gold">Parking camera</span>
+              <h3>Press CAMERA before things get spicy</h3>
               <p>
-                Use CAMERA for curbs, garage walls, parking lines, tight
+                Shift to Reverse or press CAMERA to bring up the camera views.
+                Use it for curbs, garage walls, parking lines, tight
                 front-corner checks, and any moment where guessing feels
                 unnecessary.
               </p>
-              <h3>Sensors have limits</h3>
+              <h3>Trust, but verify</h3>
               <p>
-                Cameras, sonar, radar, and lane systems can be blocked by dirt,
-                ice, rain, fog, glare, worn markings, odd road geometry, low
-                objects, or blocked cross traffic.
+                The overhead view is stitched together from multiple cameras, so
+                it is great for orientation but not a perfect measuring tape.
+                Parking sensors and Moving Object Detection can miss low, thin,
+                close, fast, or blocked objects. Your mirrors still exist for a
+                reason.
               </p>
             </article>
           </div>
-
-          <ul class="feature-list" style="margin-top: 14px">
-            <li>
-              <strong>Blind Spot Assist</strong>
-              Warns about vehicles in adjacent lanes and may help discourage a
-              lane change.
-            </li>
-            <li>
-              <strong>Lane Assist</strong>
-              Warns or assists if the car drifts when lane markings are visible.
-            </li>
-            <li>
-              <strong>Emergency Braking</strong>
-              Can warn and may brake for some forward hazards. Still leave room.
-            </li>
-            <li>
-              <strong>Rear Cross Traffic</strong>
-              Helps when backing out, but may miss people, bikes, angled
-              traffic, or blocked vehicles.
-            </li>
-            <li>
-              <strong>Speed Limit Sign</strong>
-              Displays recognized speed info. Posted signs and judgment win.
-            </li>
-            <li>
-              <strong>Steering Assist</strong>
-              Best on clear highway lanes. Skip it in construction, bad weather,
-              messy merges, or sharp curves.
-            </li>
-          </ul>
         </section>
 
         <section class="section" id="lights">
@@ -1275,8 +921,8 @@
             </div>
             <p class="lead">
               AUTO handles the easy stuff. The human still handles bad weather,
-              weird visibility, icy wipers, and not pressing SOS because a
-              spider looked at you funny.
+              weird visibility, icy wipers, and not pressing SOS for anything
+              short of an actual emergency.
             </p>
           </div>
 
@@ -1288,7 +934,7 @@
               />
               <figcaption>
                 Overhead panel: SOS, moonroof and sunshade switches, map lights,
-                interior light behavior, and reading lights.
+                bing-bong banishment, and all interior lights.
               </figcaption>
             </figure>
 
@@ -1319,14 +965,15 @@
             </div>
           </div>
 
-          <figure class="photo-card wide-photo" style="margin-top: 14px">
+          <figure class="photo-card wide-photo stack-top">
             <img
               src="assets/rearview-mirror.jpg"
               alt="Rearview mirror, sensor area, and passenger airbag indicator"
             />
             <figcaption>
               Mirror area includes auto-dimming behavior, sensor/camera housing,
-              passenger airbag status, and garage-door buttons if configured.
+              passenger airbag status, and garage-door buttons if you remind me
+              to set them.
             </figcaption>
           </figure>
         </section>
@@ -1348,8 +995,8 @@
             <article class="card">
               <span class="tag">Front power</span>
               <p>
-                The console area includes USB ports, a 12V-style outlet, and a
-                wireless charging pad. Remove thick or magnetic cases if
+                The console area includes USB ports, a cigarette-style outlet,
+                and a wireless charging pad. Remove thick or magnetic cases if
                 wireless charging acts moody.
               </p>
             </article>
@@ -1365,11 +1012,13 @@
               <p>
                 Use the console, under-console shelf, door pockets, seatback
                 pockets, glovebox, cupholders, and underfloor cargo bins.
+                There's no limit to where you can put half-empty yogurt
+                containers!
               </p>
             </article>
           </div>
 
-          <div class="grid two" style="margin-top: 14px">
+          <div class="grid two stack-top">
             <article class="card accent-gold">
               <span class="tag gold">Roof crossbars</span>
               <p>
@@ -1378,6 +1027,7 @@
                 noise, and use a step stool so cargo does not drag across paint
                 or glass.
               </p>
+              <p>As if you could ever put something on the roof yourself.</p>
             </article>
             <figure class="photo-card">
               <img
@@ -1385,7 +1035,8 @@
                 alt="Roof crossbars installed on the Pathfinder"
               />
               <figcaption>
-                Factory/accessory crossbars mounted to the roof rails.
+                I took this photo just so you can see that they exist. Paid $400
+                for those bad boys that will never be used.
               </figcaption>
             </figure>
           </div>
@@ -1398,9 +1049,8 @@
               <h2>Leather, screens, wheels</h2>
             </div>
             <p class="lead">
-              The Platinum interior is pretty because it is not built like a
-              rental-car floor mat. A little restraint with cleaners goes a long
-              way.
+              You wanted these fancy brown seats. Keep stuff off them, including
+              food, lotion, and cleaners.
             </p>
           </div>
 
@@ -1409,10 +1059,10 @@
               <article class="card accent-green">
                 <span class="tag green">Leather</span>
                 <p>
-                  Vacuum grit promptly. Wipe spills with a clean dry or lightly
-                  damp soft cloth. Use mild automotive leather cleaner approved
-                  for coated leather, test first, and avoid soaking perforated
-                  areas.
+                  Vacuum grit promptly, before it settles into the seams and
+                  cracks. Wipe spills with a clean dry or lightly damp soft
+                  cloth. Use mild automotive leather cleaner approved for coated
+                  leather, test first, and avoid soaking perforated areas.
                 </p>
               </article>
               <article class="card">
@@ -1436,26 +1086,28 @@
             </figure>
           </div>
 
-          <div class="grid three" style="margin-top: 14px">
+          <div class="grid three stack-top">
             <article class="card">
               <span class="tag">Screens</span>
               <p>
-                Use clean screen-safe microfiber. Do not dry-wipe dusty gloss
-                trim or use cleaners that can haze coatings.
+                Use clean screen-safe microfiber, not Kleenex or paper towels.
+                Do not dry-wipe dusty gloss trim or use cleaners that can haze
+                coatings.
               </p>
             </article>
             <article class="card">
               <span class="tag">Exterior</span>
               <p>
-                Wash and wax often enough to protect the finish, especially
-                after salt, coastal air, mud, bugs, or road grime.
+                Don't go through regular car washes. Touchless washes only, so
+                you don't scratch up the black plastic bits and swirl up the
+                fine detail work I intend to apply to the sparkly white paint.
               </p>
             </article>
             <article class="card accent-rose">
               <span class="tag rose">Wheels</span>
               <p>
-                Gentle wheel cleaner, thorough rinse, light water-based tire
-                dressing, and extra curb clearance. Curb rash is the villain.
+                Nissan recommends gentle wheel cleaner, thorough rinse, light
+                water-based tire dressing, and extra curb clearance.
               </p>
             </article>
           </div>
@@ -1482,8 +1134,9 @@
             </li>
             <li>
               <strong>Airbags</strong>
-              Keep bodies, bags, pets, mounts, hard objects, and cargo out of
-              airbag deployment areas. No feet on the dash. Ever.
+              There are airbags all over this damn thing. No feet on the dash,
+              unless you want to kick yourself in the face at the speed of
+              light.
             </li>
             <li>
               <strong>Passenger sensor</strong>
@@ -1538,7 +1191,7 @@
               <span class="tag">Profiles</span>
               <p>
                 User profiles help preserve display, phone, audio, and comfort
-                preferences.
+                preferences for each key.
               </p>
             </article>
             <article class="card">
@@ -1551,8 +1204,9 @@
             <article class="card">
               <span class="tag">Underfloor bins</span>
               <p>
-                Good for emergency gear, straps, umbrellas, small bags, and
-                things that should not slide around.
+                Good for emergency gear, umbrellas, small bags, and things that
+                should not slide around. And your purse if you plan to leave it
+                in the car like a fool.
               </p>
             </article>
             <article class="card">

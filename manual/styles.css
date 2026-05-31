@@ -310,6 +310,7 @@ h3 {
 /* Adds top spacing when a new row follows another block. */
 .stack-top {
   margin-top: 14px;
+  margin-bottom: 7px;
 }
 
 .card,
